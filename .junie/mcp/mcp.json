@@ -1,0 +1,11 @@
+{
+    "mcpServers": {
+        "laravel-boost": {
+            "command": "C:\\xampp\\php\\php.exe",
+            "args": [
+                "C:\\Users\\samuel.pineda\\Documents\\docs\\Manevo\\manevo-backend\\artisan",
+                "boost:mcp"
+            ]
+        }
+    }
+}
