@@ -16,4 +16,6 @@ Route::middleware('auth:sanctum')->group(function () {
     
     require __DIR__ . '/admin/permisos.php';
     require __DIR__ . '/admin/servicios.php';
+    require __DIR__ . '/admin/roles.php';
+    require __DIR__ . '/pos/productos.php';
 });
