@@ -8,5 +8,7 @@ Route::prefix('pos')->group(function () {
     Route::get('listarProductos', [ProductosController::class, 'listarProductos']);
     Route::put('actualizarProducto/{productoId}', [ProductosController::class, 'actualizarProducto']);
     Route::delete('eliminarProducto/{productoId}', [ProductosController::class, 'eliminarProducto']);
+    Route::put('moverStock/{productoId}', [ProductosController::class, 'moverStock']);
+    Route::put('cambiarEstado/{productoId}', [ProductosController::class, 'cambiarEstado']);
 });
 

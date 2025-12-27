@@ -40,4 +40,32 @@ class ProductsService
         
         return $producto->delete();
     }
+
+    public function moverStock(int $productoId, int $entityId, int $delta)
+    {
+        $producto = Products::where('id', $productoId)
+            ->where('entity_id', $entityId)
+            ->firstOrFail();
+
+        $nuevoStock = $producto->stock + $delta;
+
+        if ($nuevoStock < 0) {
+            throw new \InvalidArgumentException('El stock no puede ser negativo');
+        }
+
+        $producto->update(['stock' => $nuevoStock]);
+
+        return $producto;
+    }
+
+    public function cambiarEstado(int $productoId, int $entityId, bool $activo)
+    {
+        $producto = Products::where('id', $productoId)
+            ->where('entity_id', $entityId)
+            ->firstOrFail();
+
+        $producto->update(['active' => $activo]);
+
+        return $producto;
+    }
 }

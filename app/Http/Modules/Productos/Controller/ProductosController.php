@@ -78,4 +78,58 @@ class ProductosController extends Controller
             return response()->json(['error' => 'Error al eliminar producto'], 500);
         }
     }
+
+    public function moverStock(Request $request, int $productoId)
+    {
+        $request->validate([
+            'delta' => ['required', 'integer'],
+        ]);
+
+        try {
+            $user = auth()->user();
+            $entityId = $user->entity_id;
+            
+            if (!$entityId) {
+                return response()->json(['error' => 'Usuario no asociado a una entidad'], 403);
+            }
+
+            $producto = $this->productsService->moverStock(
+                $productoId,
+                $entityId,
+                (int) $request->input('delta')
+            );
+
+            return response()->json($producto, 200);
+        } catch (\InvalidArgumentException $ex) {
+            return response()->json(['error' => $ex->getMessage()], 422);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => 'Error al mover stock'], 500);
+        }
+    }
+
+    public function cambiarEstado(Request $request, int $productoId)
+    {
+        $request->validate([
+            'active' => ['required', 'boolean'],
+        ]);
+
+        try {
+            $user = auth()->user();
+            $entityId = $user->entity_id;
+            
+            if (!$entityId) {
+                return response()->json(['error' => 'Usuario no asociado a una entidad'], 403);
+            }
+
+            $producto = $this->productsService->cambiarEstado(
+                $productoId,
+                $entityId,
+                (bool) $request->boolean('active')
+            );
+
+            return response()->json($producto, 200);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => 'Error al actualizar estado'], 500);
+        }
+    }
 }

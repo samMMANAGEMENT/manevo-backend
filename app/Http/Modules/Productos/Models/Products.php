@@ -20,6 +20,11 @@ class Products extends Model
         'entity_id',
     ];
 
+    public function scopeByEntity($query, int $entityId)
+    {
+        return $query->where('entity_id', $entityId);
+    }
+
     public function category()
     {
         return $this->belongsTo(Categories::class, 'category_id');
